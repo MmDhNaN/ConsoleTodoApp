@@ -4,7 +4,6 @@ Console.Title = "To Do List";
 List<Todo> todos = new List<Todo>();
 Menu menu = new Menu();
 
-
 while (true)
 {
     Console.Clear();
@@ -20,7 +19,9 @@ while (true)
 
             while (string.IsNullOrWhiteSpace(title))
             {
-                Console.Write("Please Enter Your Title Correctly: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Please Enter Your Title Correctly! :");
+                Console.ResetColor();
                 title = Console.ReadLine();
             }
 
@@ -30,21 +31,20 @@ while (true)
             Console.WriteLine("Task Saved Successfully");
             Console.ResetColor();
             Thread.Sleep(800);
-            Console.Clear();
             break;
 
         case "2":
-            foreach (Todo todolist in todos)
-            {
-                Console.WriteLine(todolist.Title, todolist.IsCompleted);
-            }
+            Console.Clear();
+
             break;
 
         case "3":
+            Console.Clear();
 
             break;
 
         case "4":
+            Console.Clear();
 
             break;
 
