@@ -1,40 +1,56 @@
-﻿Console.Clear();
+﻿using ConsoleTodoApp;
 
-Console.ForegroundColor = ConsoleColor.Cyan;
-Console.WriteLine("""
-=========================
-        TODO APP
-=========================
-""");
-Console.ResetColor();
+Console.Title = "To Do List";
+List<Todo> todos = new List<Todo>();
+Menu menu = new Menu();
 
-Console.ForegroundColor = ConsoleColor.Green;
-Console.Write("1.");
-Console.ResetColor();
-Console.WriteLine(" Add Task");
 
-Console.ForegroundColor = ConsoleColor.Green;
-Console.Write("2.");
-Console.ResetColor();
-Console.WriteLine(" Show Tasks");
+while (true)
+{
+    Console.Clear();
+    menu.Show();
+    string? choice = Console.ReadLine();
 
-Console.ForegroundColor = ConsoleColor.Green;
-Console.Write("3.");
-Console.ResetColor();
-Console.WriteLine(" Complete Task");
+    switch (choice)
+    {
+        case "1":
+            Console.Clear();
+            Console.Write("Please Type Your Title: ");
+            string? title = Console.ReadLine();
 
-Console.ForegroundColor = ConsoleColor.Green;
-Console.Write("4.");
-Console.ResetColor();
-Console.WriteLine(" Delete Task");
+            while (string.IsNullOrWhiteSpace(title))
+            {
+                Console.Write("Please Enter Your Title Correctly: ");
+                title = Console.ReadLine();
+            }
 
-Console.ForegroundColor = ConsoleColor.Green;
-Console.Write("0.");
-Console.ResetColor();
-Console.WriteLine(" Exit");
+            Todo todo = new Todo(title);
+            todos.Add(todo);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Task Saved Successfully");
+            Console.ResetColor();
+            Thread.Sleep(800);
+            Console.Clear();
+            break;
 
-Console.ForegroundColor = ConsoleColor.Green;
-Console.Write("\nChoose an option: ");
-Console.ResetColor();
+        case "2":
+            foreach (Todo todolist in todos)
+            {
+                Console.WriteLine(todolist.Title, todolist.IsCompleted);
+            }
+            break;
 
-string? choice = Console.ReadLine();
+        case "3":
+
+            break;
+
+        case "4":
+
+            break;
+
+        case "0":
+            Console.WriteLine("Goodbye!");
+            Environment.Exit(0);
+            break;
+    }
+}
