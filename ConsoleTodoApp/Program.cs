@@ -1,4 +1,5 @@
 ﻿using ConsoleTodoApp;
+using System.Drawing;
 
 Console.Title = "To Do List";
 List<Todo> todos = new List<Todo>();
@@ -35,7 +36,28 @@ while (true)
 
         case "2":
             Console.Clear();
-
+            string completedStatus = " ";
+            string colorName = " ";
+            foreach (Todo todolist in todos)
+            {
+                if (todolist.IsCompleted == true)
+                {
+                    completedStatus = "Completed";
+                    colorName = "Green";
+                }
+                else
+                {
+                    completedStatus = "Not Completed";
+                    colorName = "Red";
+                }
+                Console.ForegroundColor = Enum.Parse<ConsoleColor>(colorName);
+                Console.WriteLine(todolist.Title + " - " + completedStatus);
+                Console.ResetColor();
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("\nPress Any Key To Return...");
+            Console.ResetColor();
+            Console.ReadKey();
             break;
 
         case "3":
