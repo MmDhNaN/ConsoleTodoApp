@@ -5,6 +5,7 @@ Console.Title = "To Do List";
 List<Todo> todos = new List<Todo>();
 Menu menu = new Menu();
 int nextId = 1;
+int taskId;
 string completedStatus = " ";
 string colorName = " ";
 
@@ -65,7 +66,6 @@ while (true)
 
         case "3":
             Console.Clear();
-            int taskId;
             foreach (Todo todolist in todos)
             {
                 if (todolist.IsCompleted == true)
@@ -88,11 +88,6 @@ while (true)
                 Press 0 To Return:
                 """);
             Console.ResetColor();
-
-
-
-
-
             while (true)
             {
 
@@ -101,13 +96,12 @@ while (true)
                     break;
 
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Please Enter Your Task ID Correctly!");
+                Console.WriteLine("Please Enter Your Number Correctly!");
                 Console.ResetColor();
             }
             if (taskId == 0)
             {
                 Console.Clear();
-
                 break;
             }
             else
@@ -124,12 +118,62 @@ while (true)
                     Console.ResetColor();
                 }
             }
-
             break;
 
         case "4":
             Console.Clear();
+            foreach (Todo todolist in todos)
+            {
+                if (todolist.IsCompleted == true)
+                {
+                    completedStatus = "Completed";
+                    colorName = "Green";
+                }
+                else
+                {
+                    completedStatus = "Not Completed";
+                    colorName = "Red";
+                }
+                Console.ForegroundColor = Enum.Parse<ConsoleColor>(colorName);
+                Console.WriteLine(todolist.Id + " - " + todolist.Title + " - " + completedStatus);
+                Console.ResetColor();
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("""
+                Enter Task ID To Delete Task!
+                Press 0 To Return:
+                """);
+            Console.ResetColor();
+            while (true)
+            {
 
+                string? input = Console.ReadLine();
+                if (int.TryParse(input, out taskId))
+                    break;
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Please Enter Your Number Correctly!");
+                Console.ResetColor();
+            }
+            if (taskId == 0)
+            {
+                Console.Clear();
+                break;
+            }
+            else
+            {
+                var result = todos.FirstOrDefault(i => i.Id == taskId);
+                if (result != null)
+                {
+                    todos.Remove(result);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Task Not Found!");
+                    Console.ResetColor();
+                }
+            }
             break;
 
         case "0":
