@@ -15,5 +15,10 @@ namespace ConsoleTodoApp
             Title = title;
             IsCompleted = false;
         }
+        public override string ToString()
+        {
+            string status = IsCompleted ? "Completed" : "Not Completed";
+            return $"{Id} - {Title} - {status}";
+        }
     }
 }
